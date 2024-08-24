@@ -1,0 +1,14 @@
+pre-commit:
+  commands:
+    biomeLintFix:
+      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+      run: pnpm dlx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
+      stage_fixed: true
+pre-push:
+  commands:
+    biomeLint:
+      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+      run: pnpm dlx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {push_files}
+    typeCheck:
+      glob: "*.{ts,tsx}"
+      run: pnpm tsc --noEmit
